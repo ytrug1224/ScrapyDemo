@@ -16,9 +16,12 @@ class ItspiderItem(scrapy.Item):
 
 class JobBoleArticleItem(scrapy.Item):
     title = scrapy.Field()
+    url = scrapy.Field()
+    url_object_id = scrapy.Field()
     create_date = scrapy.Field()
     url_object_id = scrapy.Field()
     front_image_url = scrapy.Field()
+    front_image_path = scrapy.Field()
     praise_nums = scrapy.Field()
     fav_nums = scrapy.Field()
     comments_nums = scrapy.Field()

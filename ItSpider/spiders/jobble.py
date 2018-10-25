@@ -19,15 +19,15 @@ class JobbleSpider(scrapy.Spider):
         """
         post_nodes = response.css("#archive .floated-thumb .post-thumb a")
         for post_node in post_nodes:
-            post_url = post_nodes.css("::attr('href')").extract_first("")
-            image_url = post_nodes.css("img::attr('src')").extract_first("")
+            image_url = post_node.css("img::attr('src')").extract_first("")
+            post_url = post_node.css("::attr('href')").extract_first("")
             yield Request(url=parse.urljoin(response.url, post_url), meta={"front_image_url": image_url},
-                          callback=self.parse_detail_css)
+                          callback=self.parse_detail_css, dont_filter=True)
 
         # 提取下一页并交给scrapy进行下载
         next_url = response.css(".next.page-numbers::attr(href)").extract_first("")
         if next_url:
-            yield Request(url=parse.urljoin(response.url, next_url), callback=self.parse)
+            yield Request(url=parse.urljoin(response.url, post_url), callback=self.parse)
         pass
 
     @staticmethod
@@ -63,8 +63,9 @@ class JobbleSpider(scrapy.Spider):
             create_date = datetime.datetime.now().date()
         article_item["create_date"] = create_date
         article_item["front_image_url"] = [front_image_url]
+        article_item["front_image_path"] = [front_image_url]
         article_item["praise_nums"] = praise_nums
-        article_item["comment_nums"] = comments_nums
+        article_item["comments_nums"] = comments_nums
         article_item["fav_nums"] = fav_nums
         article_item["tags"] = tags
         article_item["content"] = content
