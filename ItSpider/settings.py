@@ -65,8 +65,9 @@ DOWNLOAD_DELAY = 10
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'ItSpider.pipelines.ItspiderPipeline': 300,
-    'ItSpider.pipelines.ArticleImagePipeline': 1,
+    # 'ItSpider.pipelines.ItspiderPipeline': 300,
+    'ItSpider.pipelines.MysqlPipeline': 1,
+    # 'ItSpider.pipelines.ArticleImagePipeline': 1,
     # 'ItSpider.pipelines.JsonExporterPipleline': 2,
     # 'scrapy.pipelines.images.ImagesPipeline': 1,
     #  'ItSpider.pipelines.MysqlTwistedPipline': 1,
@@ -98,3 +99,13 @@ IMAGES_MIN_HEIGHT = 100
 # HTTPCACHE_DIR = 'httpcache'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+
+MYSQL_HOST = "127.0.0.1"
+MYSQL_DBNAME = "article_spider"
+MYSQL_USER = "root"
+MYSQL_PASSWORD = "123456"
+
+
+SQL_DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+SQL_DATE_FORMAT = "%Y-%m-%d"
